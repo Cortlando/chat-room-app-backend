@@ -9,7 +9,7 @@ const express = require('express'),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server)
 
-server.listen(process.env.PORT || 3000);
+
 
 const corsOptions={
     cors: true,
@@ -77,7 +77,8 @@ io.on('connection', (socket) => {
 
 //setInterval(() => console.log(io.sockets.adapter.rooms), 5000)
 
+server.listen(process.env.PORT || 3000);
 
-server.listen(port, () => {
-    console.log('listening on *:' + port);
-  });
+// server.listen(port, () => {
+//     console.log('listening on *:' + port);
+//   });
