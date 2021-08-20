@@ -21,6 +21,8 @@ const corsOptions={
     origins:["https://cortlando.github.io/chat-room-app-frontend/"],
    }
    
+
+app.use((req, res) => res.sendFile(INDEX, {root: __dirname}))   
 const io = new Server(server, corsOptions);
 
 const port = process.env.PORT || "4000"
@@ -33,7 +35,6 @@ let guestNum = getRandomInt()
 
 io.on('connection', (socket) => {
     console.log('a user connected')
-
 
    socket.emit(io.sockets.adapter.rooms)
 
