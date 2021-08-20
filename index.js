@@ -11,7 +11,7 @@ const corsOptions={
    
 const io = new Server(server, corsOptions);
 
-const port = 4000
+const port = process.env.PORT || "4000"
 
 function getRandomInt() {
     return Math.floor(Math.random() * 1000);
