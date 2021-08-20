@@ -9,8 +9,13 @@ const express = require('express'),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server)
 
+const INDEX = '/index.html';
+
+//server.listen(process.env.PORT || 3000);
 
 
+app.use((req, res) => res.sendFile(INDEX, {root: __dirname}))
+.listen(process.env.PORT || 4000)
 const corsOptions={
     cors: true,
     origins:["http://localhost:3000"],
@@ -29,9 +34,7 @@ let guestNum = getRandomInt()
 io.on('connection', (socket) => {
     console.log('a user connected')
 
-   // socket.emit(io.sockets.adapter.rooms)
 
-   //io.emit(io.sockets.adapter.rooms)
    socket.emit(io.sockets.adapter.rooms)
 
     console.log(io.sockets.adapter.rooms)
@@ -55,29 +58,24 @@ io.on('connection', (socket) => {
     })
 
     socket.on('sendMessage', ({message, user, roomName}) => {
-       // console.log("aaaaaaa")
+       
         console.log('message: ' + message)
         let nickname = ''
         user === undefined ? nickname = `Guest ${guestNum}` : nickname = user.nickname
         
         
-        //socket.to(`${roomName}`).emit('recieveMessage', {message})
+        
         socket.broadcast.to(`${roomName + '+'}`).emit('recieveMessage', {message, nickname})
     })
 
-    // socket.on('getRooms', ({rooms}) =>{
-    //     rooms = io.sockets.adapter.rooms
-        
-        
-    // })
+
     let rooms = io.sockets.adapter.rooms
     console.log(rooms + "THese the rooms")
     socket.emit("sentRooms", {roomList: JSON.stringify(Array.from(rooms))})
 })
 
-//setInterval(() => console.log(io.sockets.adapter.rooms), 5000)
 
-server.listen(process.env.PORT || 3000);
+
 
 // server.listen(port, () => {
 //     console.log('listening on *:' + port);
