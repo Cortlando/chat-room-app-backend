@@ -1,29 +1,29 @@
-// const express = require('express')
-// const app = express()
-// const http = require('http');
-// const server = http.createServer(app);
-// const { Server } = require("socket.io");
+const express = require('express')
+const http = require('http');
+const { Server } = require("socket.io");
 
-const express = require('express'),
-    app = express(),
-    server = require('http').createServer(app),
-    io = require('socket.io').listen(server)
+// const express = require('express'),
+//     app = express(),
+//     server = require('http').createServer(app),
+//     io = require('socket.io').listen(server)
 
 const INDEX = '/index.html';
 
 //server.listen(process.env.PORT || 3000);
 
+const app = express()
+const server = http.createServer(app);
 
-app.use((req, res) => res.sendFile(INDEX, {root: __dirname}))
-.listen(process.env.PORT || 4000)
+// app.use((req, res) => res.sendFile(INDEX, {root: __dirname}))
+// .listen(process.env.PORT || 4000)
 const corsOptions={
     cors: true,
-    origins:["http://localhost:3000"],
+    origins:["https://cortlando.github.io/chat-room-app-frontend/"],
    }
    
-//const io = new Server(server, corsOptions);
+const io = new Server(server, corsOptions);
 
-//const port = process.env.PORT || "4000"
+const port = process.env.PORT || "4000"
 
 function getRandomInt() {
     return Math.floor(Math.random() * 1000);
@@ -77,6 +77,6 @@ io.on('connection', (socket) => {
 
 
 
-// server.listen(port, () => {
-//     console.log('listening on *:' + port);
-//   });
+server.listen(port, () => {
+    console.log('listening on *:' + port);
+  });
