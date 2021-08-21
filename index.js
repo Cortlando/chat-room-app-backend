@@ -22,7 +22,7 @@ const corsOptions={
    }
    
 
-app.use((req, res) => res.sendFile(INDEX, {root: __dirname}))   
+app.use('/', (req, res) => res.sendFile(INDEX, {root: __dirname}))   
 const io = new Server(server, corsOptions);
 
 const port = process.env.PORT || "4000"
