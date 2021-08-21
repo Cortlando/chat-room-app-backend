@@ -18,11 +18,11 @@ const server = http.createServer(app);
 // .listen(process.env.PORT || 4000)
 const corsOptions={
     cors: true,
-    origins:["https://cortlando.github.io/chat-room-app-frontend/"],
+    origins:["https://cortlando.github.io/chat-room-app-frontend/","https://cortlando.github.io/chat-room-app-frontend/#/" ],
    }
    
 
-app.use('/', (req, res) => res.sendFile(INDEX, {root: __dirname}))   
+//app.use('/', (req, res) => res.sendFile(INDEX, {root: __dirname}))   
 const io = new Server(server, corsOptions);
 
 const port = process.env.PORT || "4000"
